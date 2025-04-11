@@ -211,10 +211,12 @@ body {
 
 .myul {
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #222244
+    background-color: #2d2b55
 }
 ul {
     position: relative;
@@ -281,3 +283,60 @@ ul {
       filter: drop-shadow(0 0 0 var(--clr));
     }
   }
+.star-container {
+    width: 31.25rem;
+    height: 31.25rem;
+    position: relative;
+    /* top:30%;
+    left:50%;
+    transform: translate(-20%, -20%); */
+}
+.planet {
+    width: 15.62rem;
+    height: 15.62rem;
+    background-color: #44417f;
+    border-radius: 50%;
+    position: absolute;
+    margin: auto;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+.planet::before{
+    content: '';
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #6560bd;
+    position: absolute;
+    top:6rem;
+    left: 3rem;
+    border-radius: 50%; 
+    box-shadow: 2rem 5rem 0 .6rem #6560bd, 2rem -2rem 0 1rem #6560bd;
+}
+.satellite{
+    width: 2rem;
+    height: 2rem;
+    background-color: #8f8dc4;
+    border-radius: 50%;
+    position: relative;
+    left: 5rem;
+    bottom: -20rem;
+    animation: spin 3s infinite;
+    z-index: 1;
+}
+@keyframes spin {
+    49%{
+        z-index: 1;
+    }
+    50%{
+        bottom: -9.3rem;
+        left: 23rem;
+        z-index: -1;
+    }
+    100%{
+        z-index: -1;
+    }
+}
+
