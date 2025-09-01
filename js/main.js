@@ -1,31 +1,31 @@
-let days = document.querySelector('.days .number'),
-    hours = document.querySelector('.hours .number'),
-    minutes = document.querySelector('.minutes .number'),
-    seconds = document.querySelector('.seconds .number'),
-    //Count Down End Date
-    //1000 milliseconds = 1 second
-    countDownDate = new Date("Sep 01, 2025 09:30:00").getTime();
-// setInterval()在指定的间隔时间内重复执行一段代码
-let counter = setInterval(() => {
-    //Get Date Now
-    let dateNow = new Date().getTime();
-    //Find The Date Difference Between Now and End Date
-    let dateDiff = countDownDate - dateNow;
+// 1. 计时起点：随便换成你需要的过去时间
+const startDate = new Date('2025-09-01T09:30:00').getTime();
 
-    //Get Time Unit
-    let day = Math.floor(dateDiff / (1000*60*60*24));
-    let hour = Math.floor((dateDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minute = Math.floor((dateDiff % (1000 * 60 * 60)) / (1000 * 60));
-    let second = Math.floor((dateDiff % (1000 * 60)) / 1000);
+// 2. 缓存 DOM 节点
+const daysEl = document.querySelector('.days .number');
+const hoursEl = document.querySelector('.hours .number');
+const minutesEl = document.querySelector('.minutes .number');
+const secondsEl = document.querySelector('.seconds .number');
 
-    days.innerHTML = day < 10 ? `0${day}` : day;
-    hours.innerHTML = hour < 10 ? `0${hour}` : hour;
-    minutes.innerHTML = minute < 10 ? `0${minute}` : minute;
-    seconds.innerHTML = second < 10 ? `0${second}` : second;
+// 3. 补零函数
+const pad = n => n.toString().padStart(2, '0');
 
-    if(dateDiff == 0){
-        clearInterval(counter);
-    }
+// 4. 每秒刷新一次
+const counter = setInterval(() => {
+  const now = Date.now();
+  const diff = now - startDate;          // 关键：用“现在 - 起点”
+
+  // 计算各个单位
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  // 5. 渲染
+  daysEl.textContent = pad(days);
+  hoursEl.textContent = pad(hours);
+  minutesEl.textContent = pad(minutes);
+  secondsEl.textContent = pad(seconds);
 }, 1000);
 
 const text = document.querySelectorAll('ul li a')
